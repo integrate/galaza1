@@ -7,3 +7,4 @@ import view,controller
 
 while True:
     controller.process_events()
+    view.draw()
