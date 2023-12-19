@@ -9,6 +9,6 @@ def process_events():
             model.debug_mode = not model.debug_mode
 
         if e.type == pygame.KEYUP and e.key == pygame.K_RIGHT:
-            model.fly1._turn_to(model.fly1._current_angle-90)
+            model.fly1._turn_to(model.fly1._current_angle-42)
             model.fly2._turn_to(model.fly2._current_angle-180)
             model.fly3._turn_to(model.fly3._current_angle+25)

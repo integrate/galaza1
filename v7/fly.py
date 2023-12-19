@@ -75,10 +75,17 @@ class Fly:
             self._move_timer = time.time()
 
     def _make_turn(self):
-        if self._target_angle<self._current_angle:
-            self._current_angle-=self._angle_step
-        elif self._target_angle>self._current_angle:
-            self._current_angle+=self._angle_step
+        if self._target_angle < self._current_angle:
+            if self._current_angle - self._angle_step < self._target_angle:
+                self._current_angle = self._target_angle
+            else:
+                self._current_angle -= self._angle_step
+
+        elif self._target_angle > self._current_angle:
+            if self._current_angle + self._angle_step > self._target_angle:
+                self._current_angle = self._target_angle
+            else:
+                self._current_angle += self._angle_step
 
     def _make_move(self):
         if self.rect.centerx>self._target_move_x:

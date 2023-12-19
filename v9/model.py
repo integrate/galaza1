@@ -8,6 +8,6 @@ fly3 = fly.Fly("../images/flies/fly_super_blue1.png", "../images/flies/fly_super
 
 
 def step():
-    fly1.step()
-    fly2.step()
+    # fly1.step()
+    # fly2.step()
     fly3.step()

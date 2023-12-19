@@ -66,9 +66,16 @@ class Fly:
 
     def _make_turn(self):
         if self._target_angle<self._current_angle:
-            self._current_angle-=self._angle_step
+            if self._current_angle-self._angle_step<self._target_angle:
+                self._current_angle = self._target_angle
+            else:
+                self._current_angle-=self._angle_step
+
         elif self._target_angle>self._current_angle:
-            self._current_angle+=self._angle_step
+            if self._current_angle + self._angle_step > self._target_angle:
+                self._current_angle = self._target_angle
+            else:
+                self._current_angle += self._angle_step
 
     def _turn_to(self, new_angle):
         self._target_angle = new_angle

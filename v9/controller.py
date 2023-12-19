@@ -16,7 +16,13 @@ def process_events():
             model.fly3._turn_to(model.fly3._current_angle+25)
 
         if e.type == pygame.KEYUP and e.key == pygame.K_LEFT:
-            x = random.randint(100, 500)
-            y = random.randint(100, 500)
-            model.fly1._move_to(x, y)
-            print(x,y)
+            # x = random.randint(100, 500)
+            # y = random.randint(100, 500)
+            # model.fly1.move_to_with_turn(x,y, 200)
+            #
+            # x = random.randint(100, 500)
+            # y = random.randint(100, 500)
+            # model.fly2.move_to_with_turn(x, y, 200)
+
+
+            model.fly3.move_to_with_turn(x, y, 200)

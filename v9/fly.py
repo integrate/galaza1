@@ -1,10 +1,12 @@
 import time
 
-import pygame
+import pygame, math_utils
 
 pygame.init()
 
 font_debug = pygame.font.SysFont("arial", 15)
+
+last = [0,0]
 
 class Fly:
     def __init__(self, image, step_image, size_multiply, x, y, step_speed=-5):
@@ -70,15 +72,22 @@ class Fly:
             self._make_turn()
             self._turn_timer = time.time()
 
-        if time.time() - self._move_timer>0.1:
+        if time.time() - self._move_timer>0.01:
             self._make_move()
             self._move_timer = time.time()
 
     def _make_turn(self):
-        if self._target_angle<self._current_angle:
-            self._current_angle-=self._angle_step
-        elif self._target_angle>self._current_angle:
-            self._current_angle+=self._angle_step
+        if self._target_angle < self._current_angle:
+            if self._current_angle - self._angle_step < self._target_angle:
+                self._current_angle = self._target_angle
+            else:
+                self._current_angle -= self._angle_step
+
+        elif self._target_angle > self._current_angle:
+            if self._current_angle + self._angle_step > self._target_angle:
+                self._current_angle = self._target_angle
+            else:
+                self._current_angle += self._angle_step
 
     def _make_move(self):
         if self.rect.centerx>self._target_move_x:
@@ -105,6 +114,11 @@ class Fly:
             else:
                 self.rect.centery += self._speedy
 
+        if last!=list(self.rect.center):
+            print(self.rect.center, self._speedx, self._speedy)
+            last[0] = self.rect.centerx
+            last[1] = self.rect.centery
+
 
     def _turn_to(self, new_angle):
         self._target_angle = new_angle
@@ -115,4 +129,10 @@ class Fly:
 
         self._speedx = abs((self.rect.centerx - self._target_move_x)/steps)
         self._speedy = abs((self.rect.centery - self._target_move_y)/steps)
+
+    def move_to_with_turn(self, x, y, steps):
+        self._current_angle = math_utils.get_angle_by_point(self.rect.center, [x,y])
+        self._target_angle = self._current_angle
+        self._move_to(x,y,steps)
+
 
